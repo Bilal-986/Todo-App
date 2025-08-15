@@ -1,0 +1,36 @@
+# fly.toml app configuration file generated for todo-frontend on 2025-01-27T12:00:00Z
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+
+app = "todo-frontend"
+primary_region = "iad"
+
+[build]
+
+[env]
+  VITE_API_URL = "https://todo-backend.fly.dev"
+
+[http_service]
+  internal_port = 80
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
+
+[[http_service.checks]]
+  grace_period = "10s"
+  interval = "30s"
+  method = "GET"
+  timeout = "5s"
+  path = "/"
+
+[machine]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 256
+
+[[vm]]
+  cpu_kind = "shared"
+  cpus = 1
+  memory_mb = 256 
